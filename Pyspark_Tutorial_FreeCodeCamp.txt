@@ -1,1 +1,11 @@
+Install Pyspark
+! pip install pyspark
+
+# Install JAVA also
+
+import pyspark
+from pyspark.sql import SparkSession
+
+# create a new spark session
+spark = SparkSession.buidler.appName('Pratice').getOrCreate()
 
