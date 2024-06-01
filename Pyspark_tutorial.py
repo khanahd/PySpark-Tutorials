@@ -78,15 +78,40 @@ df.na.drop(how='any')      # the row gets dropped only when any column values ar
 # threshold
 df.na.drop(how='any',thresh=2)
 # row gets dropped when the row has non null values less than thresh
+# if thresh non null values are in a row, it will be kept
 
+# subset
+df_pyspark.na.drop(how='any',subset=['Col_name']).show()
+# only those rows will be removed where there is null values in the given col_name for subset
 
+# Filling the Missing values [na.fill() & fillna()]
+# value = the value to replace with the null values
+# subset = the column where the null values are to be replaced, if None then all columns
+df_new = df_pyspark.na.fill(value,subset=['col_name'])
+df_new = df_pyspark.na.fill(val_replace,subset=['col_name1','col_name2'])
 
+# Imputer function
+from pyspark.ml.feature import Inputer
+inputer = Imputer(inputCols=['Col1','col2'], # name of columns to apply imputer
+                 outputCols=["{}_imputed".format(c) for c in ['col1','col2']]
+                 ).setStrategy("mean")
+# .setStrategy("median")/.setStrategy("mode")
 
+# fit and transform
+imputer.fit(df_pyspark).transform(df_pyspark).show()
+'''
+The imputer function add new column to the df 
+with the null values replaced with the choosen
+strategy.
+'''
 
-
-
-
-
+# ############################################
+'''
+Tutorial Part 4
+Filter Operation
+&, |, ==
+~
+'''
 
 
 
