@@ -109,16 +109,25 @@ strategy.
 '''
 Tutorial Part 4
 Filter Operation
-&, |, ==
-~
+& [AND], | [OR], ==
+~ [NOT]
+
+1. The dataset used contains the cols as Name, Age, Experience and Salary
 '''
 
+# Filter Operations
+# 1) FInding salary less than or equal to 20,000
+# Approach 1
+df_new = df_pyspark.filter('Salary<=20000")
+df_new.select('Name','Age').show()
 
+# Approach 2
+df_pyspark.filter(df_pyspark['Salary']<=20000).show()
 
+# Multiple Conditions
+# df.filter((df['col1']=Cond1) & (df['col2']=Cond2))
+df_pyspark.filter((df_pyspark['Salary']<=20000) & (df_pyspark['Age']>=30)).show()
+df_pyspark.filter((df_pyspark['Salary']<=20000) | (df_pyspark['Age']>=30)).show()
 
-
-
-
-
-
-
+# Not operator
+df_pyspark.filter((~df_pyspark['Salary']<=20000)).show()                           
