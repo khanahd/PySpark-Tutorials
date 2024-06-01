@@ -1,7 +1,7 @@
 '''
 [Tutorial 1]
 Installing the PySpark and basic operations on PySpark
-
+[https://github.com/krishnaik06/Pyspark-With-Python]
 ? what is a DataFrame:
 A dataframe is a data structure constructed with rows and columns, similar to a database or Excel spreadsheet
 '''
@@ -130,4 +130,19 @@ df_pyspark.filter((df_pyspark['Salary']<=20000) & (df_pyspark['Age']>=30)).show(
 df_pyspark.filter((df_pyspark['Salary']<=20000) | (df_pyspark['Age']>=30)).show()
 
 # Not operator
-df_pyspark.filter((~df_pyspark['Salary']<=20000)).show()                           
+df_pyspark.filter((~df_pyspark['Salary']<=20000)).show() 
+
+'''
+Tutorial Part 5
+Group by and Aggregate function
+Dataset used contain columns [Name,Department,Salary]
+'''                           
+
+# groupby always work with aggregate functions
+# df.groupby('ColName').functions()
+df_pyspark.groupBy('Name').sum().show()
+df_pyspark.groupBy('Name').mean().show()
+
+# agg
+df_pyspark.agg({'Salary':'sum'}).show()
+
