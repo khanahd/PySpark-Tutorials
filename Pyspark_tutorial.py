@@ -146,3 +146,49 @@ df_pyspark.groupBy('Name').mean().show()
 # agg
 df_pyspark.agg({'Salary':'sum'}).show()
 
+'''
+Tutorial 6
+Machine Learning
+There are 2 techniques:
+      1. RDD
+      2. dataframe APIs
+'''
+# Data Frame API Technique
+# Data question: to predict the salary of an employee with the help of age and experience.
+
+'''[ Vector Assembler] '''
+# ['Age','Salary']----> new feature----> independent feature
+
+from pyspark.ml.feature import VectorAssembler
+featureassembler = VectorAssembler(inputCols=['Age','Experience'],outputCol="Independent Feature")
+output = featureassembler.transform(training)
+output.show()
+
+finalised_data = output.select("Independent Features","Salary")
+finalised_data.show()
+
+from pyspark.ml.regression import LinearRegression
+# train test split
+train_data,test_data = finalised_data.randomSplit([0.75,0.25])
+regressor = LinearRegression(featureCol='Independent Features', labelCol='Salary')
+regressor = regressor.fit(train_data)
+
+# coefficients and intercept
+regressor.coefficients
+regressor.intercept
+
+# Predictions
+pred_result = regressor.evaluate(test_data)
+pred_result.predictions.show()
+
+# Error evaluations
+pred_result.meanAbsoluteError,pred_result.meanSquaredError
+
+
+
+
+
+
+
+
+
