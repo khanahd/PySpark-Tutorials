@@ -184,6 +184,41 @@ pred_result.predictions.show()
 # Error evaluations
 pred_result.meanAbsoluteError,pred_result.meanSquaredError
 
+''' Learn about DATABRICKS - Community Version 
+1. Create a cluster - Runtime 8.2 (Scala 2.12, Spark 3.1.1)
+2. Upload the Data Set
+3. Crate a notebook from Home
+4. then run all the codes as learnt till now
+'''
+
+### Handling categorical features
+
+from pyspark.ml.feature import StringIndexer
+# indexer = StringIndexer(inputCol= "Col_name",outputCol= "col_name_indexed")       # for single column
+indexer = StringIndexer(inputCols= ["Col_name","Col_2"],outputCols= ["col_name_indexed","Col2_Indexed"])      # for multiple columns
+df_new = indexer.fit(df).transform(df)
+df_new.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
